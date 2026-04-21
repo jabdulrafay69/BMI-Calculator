@@ -1,0 +1,42 @@
+using System;
+using System.Windows;
+
+namespace AthleteBMI
+{
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
+
+        private void CalculateBMI_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                double heightCm = Convert.ToDouble(HeightBox.Text);
+                double weightKg = Convert.ToDouble(WeightBox.Text);
+
+                double heightM = heightCm / 100;
+                double bmi = weightKg / (heightM * heightM);
+
+                string category = "";
+
+                if (bmi < 18.5)
+                    category = "Underweight";
+                else if (bmi < 24.9)
+                    category = "Fit (Athlete Range)";
+                else if (bmi < 29.9)
+                    category = "Overweight";
+                else
+                    category = "Obese";
+
+                ResultText.Text = $"BMI: {bmi:F2} ({category})";
+            }
+            catch
+            {
+                MessageBox.Show("Please enter valid numbers!");
+            }
+        }
+    }
+}
